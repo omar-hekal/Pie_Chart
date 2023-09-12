@@ -5,7 +5,6 @@ import pandas as pd
 import sys
 import PieChartWidget
 import FilterationWidgets
-import tracemalloc
 
 class wdgPieChartTab(QWidget):
     def __init__(self, data):
@@ -161,7 +160,6 @@ def getCategoryColumnNames(data: pd.DataFrame, ExcludedCols: list) -> list:
 
 
 if __name__ == "__main__":
-    tracemalloc.start()
 
     app = QApplication(sys.argv)
     dlg = QMainWindow()
@@ -176,6 +174,4 @@ if __name__ == "__main__":
     dlg.resize(1900, 800)
     dlg.show()
 
-    app.exec_()
-    print(tracemalloc.get_traced_memory())
-    tracemalloc.stop()
+    sys.exit(app.exec_())
