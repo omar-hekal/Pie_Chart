@@ -137,7 +137,7 @@ class wdgPieChartTab(QWidget):
             if data.empty:
                 QMessageBox.critical(self, "Error", "There is no Data because of Filtration")
             else:
-                wdgChart = PieChart.wdgPieChart(type, mainCol, breakDownCol, data)
+                wdgChart = PieChartWidget.wdgPieChart(type, mainCol, breakDownCol, data)
                 self.lytRight.addWidget(wdgChart)
 
         else:
