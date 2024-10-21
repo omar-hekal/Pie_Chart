@@ -145,7 +145,10 @@ class wdgPieChartTab(QWidget):
 
 def getAllColNamesAndTypes(data: pd.DataFrame, ExcludedCols: list) -> pd.Series:
     dataTypes = data.dtypes
-    dataTypes.drop(labels=ExcludedCols, inplace=True)
+    for col in ExcludedCols:
+        # check first if the column is in the data
+        if col in dataTypes.index:
+            dataTypes.drop(labels=col, inplace=True)
     return dataTypes
 
 def getCategoryColumnNames(data: pd.DataFrame, ExcludedCols: list) -> list:
@@ -159,19 +162,3 @@ def getCategoryColumnNames(data: pd.DataFrame, ExcludedCols: list) -> list:
 ## excluded: 'Time', 'Date', 'Summary of Operations'
 
 
-if __name__ == "__main__":
-
-    app = QApplication(sys.argv)
-    dlg = QMainWindow()
-    data = pd.read_csv('../activity_table.csv', index_col=0)
-
-    wdg = wdgPieChartTab(data)
-    tabs = QTabWidget()
-    tabs.setMovable(True)
-    tabs.addTab(wdg, "Pie Chart")
-
-    dlg.setCentralWidget(tabs)
-    dlg.resize(1900, 800)
-    dlg.show()
-
-    sys.exit(app.exec_())
